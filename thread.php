@@ -52,7 +52,7 @@
             <h1 class="display-4"><?php echo $title; ?></h1>
             <p class="lead"><?php echo $desc; ?> </p>
             <hr class="my-4">
-            <p><b>Posted by: Arjit</b></p>
+            <p>Posted by: <b>Arjit</b></p>
         </div>
 
 
