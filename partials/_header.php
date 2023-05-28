@@ -37,9 +37,9 @@
         echo '<form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        <p class="text-light my-0 mx-2"> Welcome Mr' . $_SESSION['useremail'] . '</p>
+        <p class="text-light my-0 mx-2">' . $_SESSION['useremail'] . '</p>
         
-        <button class="btn btn-success ml-2" data-toggle="modal" data-target="#loginModal">Logout</button>
+        <a href="partials/_logout.php" class="btn btn-success ml-2">Logout</a>
       </form>';
       }
 
@@ -48,8 +48,9 @@
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
-        <button class="btn btn-success ml-2" data-toggle="modal" data-target="#loginModal">Login</button>
-        <button class="btn btn-success mx-2" data-toggle="modal" data-target="#signupModal">Sign up</button>';
+      <button class="btn btn-success ml-2" data-toggle="modal" data-target="#loginModal">Login</button>
+      <button class="btn btn-success mx-2" data-toggle="modal" data-target="#signupModal">Sign up</button>';
+      // echo "Pleases login";
       }
       
 
@@ -84,13 +85,17 @@
   // LOGIN CHECK
 
   if(isset($_GET['loginsuccess']) && $_GET['loginsuccess'] == "true") {
-    $user = $_GET['user'];
-    echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
-    <strong>Welcome!</strong> '.$user.'
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>';
+
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+
+      $user = $_GET['user'];
+      echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+      <strong>Welcome!</strong> '.$user.'
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>';
+    }
   }
   if(isset($_GET['loginsuccess']) && $_GET['loginsuccess'] == "false") {
     $error = $_GET['error'];

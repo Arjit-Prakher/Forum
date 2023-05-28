@@ -63,10 +63,11 @@
             </ul>
             <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
         </div>
-
-        <div class="container">
+<?php
+if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+       echo '<div class="container">
             <h1 class="py-2">Start a Discussion</h1>
-            <form action="<?php $_SERVER['REQUEST_URI'] ?>" method="post">
+            <form action=" '. $_SERVER["REQUEST_URI"] .' " method="post">
                 <div class="form-group">
                     <label for="title">Problem Title</label>
                     <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
@@ -78,8 +79,17 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
-        </div>
-
+        </div>';
+}
+else {
+    echo '
+    <div class="container">
+        <h1 class="py-2">Start a Discussion</h1>
+        <p class="lead">Please Login to be able to start a discussion.</p>
+    </div>
+    ';
+}
+?>
         <div class="container">
             <h1 class="py-2">Browse questions</h1>
             <?php
