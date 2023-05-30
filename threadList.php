@@ -13,8 +13,8 @@
 </head>
 
 <body>
-    <?php include 'partials/_header.php'; ?>
     <?php include 'partials/_dbconnect.php'; ?>
+    <?php include 'partials/_header.php'; ?>
     <?php
     $id = $_GET['catid'];
     $sql = "SELECT * FROM `category` WHERE `category_id` = $id";

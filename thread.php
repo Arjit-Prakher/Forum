@@ -13,8 +13,8 @@
 </head>
 
 <body>
-    <?php include 'partials/_header.php'; ?>
     <?php include 'partials/_dbconnect.php'; ?>
+    <?php include 'partials/_header.php'; ?>
     <?php
     $id = $_GET['threadid'];
     $sql = "SELECT * FROM `threads` WHERE `thread_id` = $id";

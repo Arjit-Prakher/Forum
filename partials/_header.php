@@ -18,14 +18,19 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Categories
+            Top Categories
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">';
+          $sql = "SELECT category_name, category_id FROM `category`";
+          $result = mysqli_query($conn, $sql);
+          
+          while($row = mysqli_fetch_assoc($result)) {
+
+            echo'<a class="dropdown-item" href="threadList.php?catid='.$row['category_id'].'">'.$row['category_name'].'</a>';
+
+            }
+
+          echo '</div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="contact.php">Contact</a>
