@@ -32,7 +32,15 @@
         // insert into thread DB
         $th_title = $_POST['title'];
         $th_desc = $_POST['desc'];
-        $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '0', current_timestamp())";
+
+        $th_title = str_replace("<", "&lt;", $th_title);
+        $th_title = str_replace(">", "&gt;", $th_title);
+
+        $th_desc = str_replace("<", "&lt;", $th_desc);
+        $th_desc = str_replace(">", "&gt;", $th_desc);
+
+        $sno = $_POST['sno'];
+        $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '$sno', current_timestamp())";
         $result = mysqli_query($conn, $sql);
         $showAlert = true;
         if($showAlert) {
@@ -73,6 +81,7 @@ if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp">
                     <small id="emailHelp" class="form-text text-muted">Keep your title short and crisp</small>
                 </div>
+                <input type="hidden" name="sno" value="'.$_SESSION["sno"].'">
                 <div class="form-group">
                     <label for="desc">Elaborate your concern</label>
                     <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
@@ -105,15 +114,20 @@ else {
                 $desc = $row['thread_desc'];
                 $thread_time = $row['timestamp'];
 
+                $thread_user_id = $row['thread_user_id'];
+                $sql2 = "SELECT * FROM `users` WHERE `sno` = '$thread_user_id'";
+                $result2 = mysqli_query($conn, $sql2);
+                $row2 = mysqli_fetch_assoc($result2);
 
                 echo '<div class="media my-3">
                     <img src="img/user.png" width="55" class="mr-3" alt="...">
                     <div class="media-body">
-                    <p class="font-weight-bold my-0">Anonymous User at ' . $thread_time . '</p>
+                        <p class="font-weight-bold my-0">Asked by:: '. $row2['user_email'] . ' at ' . $thread_time . '</p>
                         <h5 class="mt-0"><a href="thread.php?threadid=' . $id . '">' . $title . '</a></h5>
                         ' . $desc . '
                     </div>
-                </div>';
+                    </div>
+                    <hr style="height:2px;border-width:0;color:gray;background-color:gray">';
             }
             // echo var_dump($noResult);
             if ($noResult) {

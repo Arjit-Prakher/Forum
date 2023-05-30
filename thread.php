@@ -22,6 +22,13 @@
     while ($row = mysqli_fetch_assoc($result)) {
         $title = $row['thread_title'];
         $desc = $row['thread_desc'];
+        $thread_user_id = $row['thread_user_id'];
+
+        // Query the USERS table to find out the name of original poster.
+        $sql2 = "SELECT user_email FROM `users` WHERE `sno` = '$thread_user_id'";
+        $result2 = mysqli_query($conn, $sql2);
+        $row2 = mysqli_fetch_assoc($result2);
+        $posted_by = $row2['user_email'];
     }
     ?>
 
@@ -31,7 +38,12 @@
     if ($method == 'POST') {
         // insert into comments DB
         $comment = $_POST['comment'];
-        $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '0', current_timestamp())";
+
+        // str_replace("search", "replace", "subject");
+        $comment = str_replace("<", "&lt;", $comment);
+        $comment = str_replace(">", "&gt;", $comment);
+        $sno = $_POST['sno'];
+        $sql = "INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '$sno', current_timestamp())";
         $result = mysqli_query($conn, $sql);
         $showAlert = true;
         if ($showAlert) {
@@ -52,53 +64,33 @@
             <h1 class="display-4"><?php echo $title; ?></h1>
             <p class="lead"><?php echo $desc; ?> </p>
             <hr class="my-4">
-            <p>Posted by: <b>Arjit</b></p>
+            <p>Posted by: <b><?php echo $posted_by; ?></b></p>
         </div>
 
 
-        <!-- <?php
-        $showAlert = false;
-        $method = $_SERVER['REQUEST_METHOD'];
-        if ($method == 'POST') {
-            // insert into thread DB
-            $th_title = $_POST['title'];
-            $th_desc = $_POST['desc'];
-            $sql = "INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '0', current_timestamp())";
-            $result = mysqli_query($conn, $sql);
-            $showAlert = true;
-            if ($showAlert) {
-                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Success!</strong> Your question was posted. Please wait until the community responds.
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>';
-            }
-        }
-        ?> -->
-<?php
-if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+        <?php
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
-    echo '<div class="container">
+            echo '<div class="container">
          <h1 class="py-2">Post a comment</h1>
-         <form action=" '. $_SERVER["REQUEST_URI"] .'" method="post">
+         <form action=" ' . $_SERVER["REQUEST_URI"] . '" method="post">
              <div class="form-group">
                  <label for="desc">Type your comment</label>
                  <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+                 <input type="hidden" name="sno" value=" ' . $_SESSION["sno"] . ' ">
              </div>
              <button type="submit" class="btn btn-primary">Post</button>
          </form>
      </div>';
-}
-else {
-    echo '
+        } else {
+            echo '
     <div class="container">
         <h1 class="py-2">Post a comment</h1>
         <p class="lead">Please Login to be able to post a comment.</p>
     </div>
     ';
-}
-?>
+        }
+        ?>
 
         <div class="container">
             <h1 class="py-2">Discussions</h1>
@@ -111,12 +103,17 @@ else {
 
                 $id = $row['comment_id'];
                 $content = $row['comment_content'];
+                $comment_time = $row['comment_time'];
+                $thread_user_id = $row['comment_by'];
+                $sql2 = "SELECT * FROM `users` WHERE `sno` = '$thread_user_id'";
+                $result2 = mysqli_query($conn, $sql2);
+                $row2 = mysqli_fetch_assoc($result2);
 
 
                 echo '<div class="media my-3">
                     <img src="img/user.png" width="55" class="mr-3" alt="...">
                     <div class="media-body">
-                    <p class="font-weight-bold my-0">Anonymous</p>
+                    <p class="font-weight-bold my-0">' . $row2['user_email'] . ' at ' . $comment_time . '</p>
                         ' . $content . '
                     </div>
                 </div>';

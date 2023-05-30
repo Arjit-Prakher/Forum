@@ -14,6 +14,7 @@
             if(password_verify($pass, $row['user_pass'])) {
                 session_start();
                 $_SESSION['loggedin'] = true;
+                $_SESSION['sno'] = $row['sno'];
                 $_SESSION['useremail'] = $email;
                 // echo "Logged in as: ". $email;
                 header("Location: /forum/index.php?loginsuccess=true&user=$email");
