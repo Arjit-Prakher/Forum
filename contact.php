@@ -10,11 +10,49 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Uv Talks!</title>
+    <script src="https://kit.fontawesome.com/a7aaa625ce.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./partials/_contactStyle.css">
 </head>
 
 <body>
     <?php include 'partials/_dbconnect.php'; ?>
     <?php include 'partials/_header.php'; ?>
+
+    <img class="shape" src="./img/Geometrics2.jpg" alt="geometric shapes" style="position: absolute;width: 100%;height: 90vh;">
+    <div class="container mt-5">
+        <div class="leftside" style="position: relative;">
+            <p class="h1 mb-0 text-light">Reach us</p>
+            <div class="reach">
+                <div class="icon"><i class="fa-brands fa-github" style="font-size: 3rem;"></i>
+                    <div class="tag">Github</div>
+                </div>
+                <div class="icon"><i class="fa-brands fa-whatsapp" style="font-size: 3rem;"></i>
+                    <div class="tag">Gmail</div>
+                </div>
+                <div class="icon"><i class="fa-brands fa-telegram" style="font-size: 3rem;"></i>
+                    <div class="tag">Telegram</div>
+                </div>
+                <div class="icon"><i class="fa-regular fa-envelope" style="font-size: 3rem;"></i>
+                    <div class="tag">Email</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="rightside my-5" style="position: relative;">
+            <form>
+                <div class="form-group text-light">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control bg-dark text-light" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group text-light">
+                    <label for="exampleFormControlTextarea1">Write your text here</label>
+                    <textarea class="form-control bg-dark text-light" id="exampleFormControlTextarea1" rows="8"></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 
 
 

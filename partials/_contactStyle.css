@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.reach {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    line-height: 6; 
+    color: aliceblue;
+}
+.icon {
+    color: aliceblue;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    transition: 0.2s;
+    width: 100%;
+}
+.tag {
+    transition: 0.2s;
+}
+.tag:hover {
+    font-weight: bold;
+    color: aliceblue;
+    letter-spacing: 5px;
+    transition: all 0.2s ease-in;
+}
+
