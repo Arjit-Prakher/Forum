@@ -12,9 +12,19 @@
     <title>Uv Talks!</title>
 </head>
 
-<body>
+<body class="bg-dark">
     <?php include 'partials/_dbconnect.php'; ?>
     <?php include 'partials/_header.php'; ?>
+
+    <div class="container my-5">
+        <div class="heading" style="position: relative; display: flex; flex-direction: row;">
+            <h1 class="text-light">About <span style="color: cyan;">Us</span></h1>
+        </div>
+        <div class="paragraph mt-5 text-light">
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 25px;">U.V Talks, another of Ultraviolet's creation. This website will help establish a community for our Company.</p>
+            <p style="font-family: 'Times New Roman', Times, serif; font-size: 25px;">This community will house our most experienced developers as well as the developers from our R&D team. Hence, the members of Ultraviolet family will get all the queries answered. Join our community and become a new member and help Ultraviolet grow. 😉</p>
+        </div>
+    </div>
 
 
 
