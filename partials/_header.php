@@ -42,7 +42,7 @@
         echo '<form class="form-inline my-2 my-lg-0" action="search.php" method="get">
         <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        <p class="text-light my-0 mx-2">' . $_SESSION['useremail'] . '</p>
+        <a href="./userProfile.php"><p class="text-light my-0 mx-2 font-weight-bolder">' . $_SESSION['useremail'] . '</p></a>
         
         <a href="partials/_logout.php" class="btn btn-success ml-2">Logout</a>
       </form>';
