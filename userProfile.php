@@ -103,14 +103,14 @@
                     $status = $row['status'];
                     $image = $row['image'];
                 }
-                if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+                
                     echo '<div class="jumbotron">
                                 <h1 class="display-4">Hi! ' . $_SESSION['useremail'] . '</h1>
                                 <p class="lead">Welcome to your Profile.</p>
                                 <hr class="my-4">
                                 <p><strong>Status:</strong> ' . $status . ' </p>
                             </div>';
-                }
+                
                 ?>
             </div>
             <div class="col-sm-6">
@@ -148,7 +148,7 @@
                 <p>Edit Profile</p>
                 <hr class="my-2">
                 <div class="container">
-                    <form>
+                    <form method="post" action="">
                         <div class="form-group">
                             <label for="user">New Username</label>
                             <input type="text" class="form-control" id="user" name="user" aria-describedby="emailHelp" placeholder="Username">
