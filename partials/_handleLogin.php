@@ -17,8 +17,6 @@
                 $_SESSION['sno'] = $row['sno'];
                 $id = $row['sno'];
                 $_SESSION['useremail'] = $email;
-                // echo "Logged in as: ". $email;
-                // $sql = "INSERT INTO `profile` (`sno`) VALUES ('$id')";
                 $result = mysqli_query($conn, $sql);
                 header("Location: /forum/index.php?loginsuccess=true&user=$email");
             }

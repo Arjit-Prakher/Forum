@@ -37,6 +37,7 @@
 
     <?php include 'partials/_header.php'; ?>
 
+    <!-- User Profile Photo Updater -->
     <?php
     $sno = $_SESSION['sno'];
     if (isset($_POST['upload'])) {
@@ -44,8 +45,6 @@
         $tempname = $_FILES["uploadFile"]["tmp_name"];
         $folder = "./img/" . $filename;
 
-        // $sql = "INSERT INTO `profile` (`image`) VALUES ('$filename')";
-        // $sql = "UPDATE `profile` SET `status` = 'asdf' WHERE `profile`.`profile_id` = 12";
         $sql = "UPDATE `profile` SET `image` = '$filename' WHERE `sno` = $sno";
         $result = mysqli_query($conn, $sql);
 
@@ -67,6 +66,8 @@
         }
     }
     ?>
+
+    <!-- User Status Updater -->
     <?php
     if (isset($_POST['status'])) {
         $newStatus = $_POST['status'];
@@ -88,8 +89,47 @@
                         </div>';
         }
     }
-
     ?>
+
+    <!-- User Login credential updater -->
+    <?php
+            $update_login = false;
+            if (isset($_POST['newPass'])) {
+                $username = $_POST['user'];
+                $oldpass = $_POST['oldPass'];
+                $newpass = $_POST['newPass'];
+
+                $sql = "SELECT * FROM `users` WHERE `sno` = $sno";
+                $result = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($result);
+
+                // check for similar passwords
+                if (password_verify($oldpass, $row['user_pass'])) {
+                    $newHash = password_hash($newpass, PASSWORD_DEFAULT);
+                    // $sql = "UPDATE `users` SET `user_pass` = '$newHash' WHERE `sno` = $sno";
+                    $sql = "UPDATE `users` SET `user_email` = '$username', `user_pass` = '$newHash' WHERE `sno` = $sno";
+                    $result = mysqli_query($conn, $sql);
+                    $update_login = true;
+                }
+            }
+            if ($update_login) {
+                echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>That was Done 😉</strong>.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+                </div>';
+                // include 'partials/_logout.php';
+                // exit("Login again");
+                // session_start();
+
+                // header("location: /forum");
+                session_unset();
+                session_destroy();
+                echo "<script>window.location.href = '/forum';</script>";
+
+            }
+            ?>
     <div class="container my-5">
         <div class="row">
             <div class="col-sm-6">
@@ -103,14 +143,14 @@
                     $status = $row['status'];
                     $image = $row['image'];
                 }
-                
-                    echo '<div class="jumbotron">
+
+                echo '<div class="jumbotron">
                                 <h1 class="display-4">Hi! ' . $_SESSION['useremail'] . '</h1>
                                 <p class="lead">Welcome to your Profile.</p>
                                 <hr class="my-4">
                                 <p><strong>Status:</strong> ' . $status . ' </p>
                             </div>';
-                
+
                 ?>
             </div>
             <div class="col-sm-6">
@@ -151,15 +191,15 @@
                     <form method="post" action="">
                         <div class="form-group">
                             <label for="user">New Username</label>
-                            <input type="text" class="form-control" id="user" name="user" aria-describedby="emailHelp" placeholder="Username">
+                            <input type="text" class="form-control" id="user" name="user" aria-describedby="emailHelp" placeholder="Username" required>
                         </div>
                         <div class="form-group">
                             <label for="oldPass">Old Password</label>
-                            <input type="password" class="form-control" id="oldPass" name="oldPass" placeholder="Password">
+                            <input type="password" class="form-control" id="oldPass" name="oldPass" placeholder="Password" required>
                         </div>
                         <div class="form-group">
                             <label for="newPass">New Password</label>
-                            <input type="password" class="form-control" id="newPass" name="newPass" placeholder="Password">
+                            <input type="password" class="form-control" id="newPass" name="newPass" placeholder="Password" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
