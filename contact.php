@@ -27,7 +27,7 @@
                     <div class="tag">Github</div>
                 </div>
                 <div class="icon"><i class="fa-brands fa-whatsapp" style="font-size: 3rem;"></i>
-                    <div class="tag">Gmail</div>
+                    <div class="tag">Whatsapp</div>
                 </div>
                 <div class="icon"><i class="fa-brands fa-telegram" style="font-size: 3rem;"></i>
                     <div class="tag">Telegram</div>
